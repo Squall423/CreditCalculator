@@ -5,11 +5,11 @@ import java.time.LocalDate;
 
 public class TimePoint {
 
-    private LocalDate date;
-    private BigDecimal year;
-    private BigDecimal month;
+    private final LocalDate date;
+    private final BigDecimal year;
+    private final BigDecimal month;
 
-    TimePoint(LocalDate aDate, BigDecimal aYear, BigDecimal aMonth) {
+    public TimePoint(LocalDate aDate, BigDecimal aYear, BigDecimal aMonth) {
         date = aDate;
         year = aYear;
         month = aMonth;

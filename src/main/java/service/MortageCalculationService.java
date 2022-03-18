@@ -4,6 +4,6 @@ import model.InputData;
 
 public interface MortageCalculationService {
 
-     void calculate(InputData inputData);
+     void calculate(InputData aInputData);
 
 }

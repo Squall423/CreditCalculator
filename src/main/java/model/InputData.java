@@ -45,7 +45,7 @@ public class InputData {
         return this;
     }
 
-    LocalDate getRepaymentStartDate() {
+    public LocalDate getRepaymentStartDate() {
         return repaymentStartDate;
     }
 

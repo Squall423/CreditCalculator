@@ -18,9 +18,9 @@ public class MortageCalculationServiceImpl implements MortageCalculationService 
     }
 
     @Override
-    public void calculate(InputData inputData) {
-        printingService.printInputDataInfo(inputData);
-        List<Rate> calculate = rateCalculationService.calculate(inputData);
+    public void calculate(InputData aInputData) {
+        printingService.printInputDataInfo(aInputData);
+        List<Rate> calculate = rateCalculationService.calculate(aInputData);
 
     }
 
