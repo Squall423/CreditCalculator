@@ -15,7 +15,7 @@ public class MortageResidual {
         return duration;
     }
 
-    BigDecimal getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 }

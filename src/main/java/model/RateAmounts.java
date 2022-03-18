@@ -8,7 +8,7 @@ public class RateAmounts {
     private final BigDecimal interestAmount;
     private final BigDecimal capitalAmount;
 
-    RateAmounts(BigDecimal aRateAmount, BigDecimal aInterestAmount, BigDecimal aCapitalAmount) {
+    public RateAmounts(BigDecimal aRateAmount, BigDecimal aInterestAmount, BigDecimal aCapitalAmount) {
         rateAmount = aRateAmount;
         interestAmount = aInterestAmount;
         capitalAmount = aCapitalAmount;

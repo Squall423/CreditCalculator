@@ -1,7 +1,6 @@
 package service;
 
 import model.InputData;
-import model.Rate;
 import model.TimePoint;
 
 import java.math.BigDecimal;
@@ -10,8 +9,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 
-
-public class TimePointsServiceImpl implements TimePointService {
+public class TimePointServiceImpl implements TimePointService {
 
     public static final BigDecimal YEAR = BigDecimal.valueOf(12);
 
@@ -22,7 +20,7 @@ public class TimePointsServiceImpl implements TimePointService {
         LocalDate date = calculateDate(aRateNumber, aInputData);
         BigDecimal year = calculateYear(aRateNumber);
         BigDecimal month = calculateYear(aRateNumber);
-        return new TimePoint(date,year,month);
+        return new TimePoint(date, year, month);
 
     }
 
@@ -31,12 +29,12 @@ public class TimePointsServiceImpl implements TimePointService {
                 ChronoUnit.MONTHS);
     }
 
-    private BigDecimal calculateYear(final BigDecimal aRateNumber){
+    private BigDecimal calculateYear(final BigDecimal aRateNumber) {
         return aRateNumber.divide(YEAR, RoundingMode.UP).max(BigDecimal.ONE);
     }
 
-    private BigDecimal calculateMonth(final BigDecimal aRateNumber){
-        return aRateNumber.remainder(YEAR);
+    private BigDecimal calculateMonth(final BigDecimal aRateNumber) {
+        return BigDecimal.ZERO.equals(aRateNumber.remainder(YEAR)) ? YEAR : aRateNumber.remainder(YEAR);
     }
 
 }

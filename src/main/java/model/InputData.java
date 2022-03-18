@@ -58,7 +58,7 @@ public class InputData {
         return monthsDuration;
     }
 
-    RateType getRateType() {
+    public RateType getRateType() {
         return rateType;
     }
 
