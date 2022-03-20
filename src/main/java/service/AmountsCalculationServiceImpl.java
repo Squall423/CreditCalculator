@@ -46,7 +46,6 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
         BigDecimal capitalAmount = calculateConstantCapitalAmount(rateAmount, interestAmount);
 
         return new RateAmounts(rateAmount, interestAmount, capitalAmount);
-
     }
 
     private RateAmounts calculateConstantRate(InputData aInputData, Rate aPreviousRate) {
@@ -60,15 +59,30 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
         BigDecimal capitalAmount = calculateConstantCapitalAmount(rateAmount, interestAmount);
 
         return new RateAmounts(rateAmount, interestAmount, capitalAmount);
-
     }
 
     private RateAmounts calculateDecreasingRate(InputData aInputData) {
-        return null;
+        BigDecimal interestPercent = aInputData.getInterestPercent();
+        BigDecimal residualAmount = aInputData.getAmount();
+
+        BigDecimal interestAmount = calculateInterestAmount(residualAmount, interestPercent);
+        BigDecimal capitalAmount = calculateDecreasingCapitalAmount(residualAmount,
+                aInputData.getMonthsDuration());
+        BigDecimal rateAmount = capitalAmount.add(interestAmount);
+
+        return new RateAmounts(rateAmount, interestAmount, capitalAmount);
     }
 
     private RateAmounts calculateDecreasingRate(InputData aInputData, Rate aPreviousRate) {
-        return null;
+        BigDecimal interestPercent = aInputData.getInterestPercent();
+        BigDecimal residualAmount = aPreviousRate.getMortageResidual().getAmount();
+
+        BigDecimal interestAmount = calculateInterestAmount(residualAmount, interestPercent);
+        BigDecimal capitalAmount = calculateDecreasingCapitalAmount(residualAmount,
+                aInputData.getMonthsDuration());
+        BigDecimal rateAmount = capitalAmount.add(interestAmount);
+
+        return new RateAmounts(rateAmount, interestAmount, capitalAmount);
     }
 
     private BigDecimal calculateQ(BigDecimal aInterestPercent) {
@@ -85,7 +99,6 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
 
     private BigDecimal calculateConstantCapitalAmount(BigDecimal aRateAmount, BigDecimal aInterestAmount) {
         return aRateAmount.subtract(aInterestAmount);
-
     }
 
     private BigDecimal calculateInterestAmount(BigDecimal aResidualAmount, BigDecimal aInterestPercent) {
@@ -93,4 +106,7 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
     }
 
 
+    private BigDecimal calculateDecreasingCapitalAmount(BigDecimal aAmount, BigDecimal aMonthsDuration) {
+        return aAmount.divide(aMonthsDuration, 2, RoundingMode.HALF_UP);
+    }
 }
