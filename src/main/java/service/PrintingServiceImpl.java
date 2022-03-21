@@ -2,6 +2,7 @@ package service;
 
 import model.InputData;
 import model.Rate;
+import model.Summary;
 
 import java.util.List;
 
@@ -40,14 +41,26 @@ public class PrintingServiceImpl implements PrintingService {
                     RATE, rate.getRateAmounts().getRateAmount(),
                     INTEREST_PAYMENT, rate.getRateAmounts().getInterestAmount(),
                     CAPITAL, rate.getRateAmounts().getCapitalAmount(),
-                    LEFT, rate.getMortageResidual().getAmount(),
-                    MONTHS, rate.getMortageResidual().getDuration()
+                    LEFT_AMOUNT, rate.getMortageResidual().getAmount(),
+                    LEFT_MONTHS, rate.getMortageResidual().getDuration()
             );
             System.out.println(message);
+            if (rate.getRateNumber().intValue() % 12 == 0) {
+                System.out.println();
+            }
         }
     }
 
     private void printMessage(StringBuilder sb) {
         System.out.println(sb.toString());
+    }
+
+    @Override
+    public void printSummary(Summary aSummary) {
+        StringBuilder msg = new StringBuilder(NEW_LINE);
+        msg.append(INTEREST_SUM).append(aSummary.getInterestSum()).append(CURRENCY);
+        msg.append(NEW_LINE);
+
+        printMessage(msg);
     }
 }
