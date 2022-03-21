@@ -9,27 +9,37 @@ public class Rate {
     private final RateAmounts rateAmount;
     private final MortageResidual mortageResidual;
 
-   public Rate(BigDecimal aRateNumber, TimePoint aTimePoint, RateAmounts aRateAmount,
+   public Rate(BigDecimal aRateNumber, TimePoint aTimePoint, RateAmounts aRateAmounts,
                MortageResidual aMortageResidual) {
         rateNumber = aRateNumber;
         timePoint = aTimePoint;
-        rateAmount = aRateAmount;
+        rateAmount = aRateAmounts;
         mortageResidual = aMortageResidual;
     }
 
-    BigDecimal getRateNumber() {
+    public BigDecimal getRateNumber() {
         return rateNumber;
     }
 
-    TimePoint getTimePoint() {
+    public TimePoint getTimePoint() {
         return timePoint;
     }
 
-    RateAmounts getRateAmount() {
+    public RateAmounts getRateAmounts() {
         return rateAmount;
     }
 
     public MortageResidual getMortageResidual() {
         return mortageResidual;
     }
+
+    @Override
+    public String toString() {
+        return "Rate{" +
+                "rateAmount=" + rateAmount +
+                ", mortageResidual=" + mortageResidual +
+                '}';
+    }
+
+
 }

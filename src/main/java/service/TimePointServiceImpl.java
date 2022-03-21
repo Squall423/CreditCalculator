@@ -19,7 +19,7 @@ public class TimePointServiceImpl implements TimePointService {
 
         LocalDate date = calculateDate(aRateNumber, aInputData);
         BigDecimal year = calculateYear(aRateNumber);
-        BigDecimal month = calculateYear(aRateNumber);
+        BigDecimal month = calculateMonth(aRateNumber);
         return new TimePoint(date, year, month);
 
     }

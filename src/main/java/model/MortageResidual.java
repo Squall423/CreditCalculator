@@ -1,21 +1,30 @@
 package model;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class MortageResidual {
     private final BigDecimal amount;
     private final BigDecimal duration;
 
-    MortageResidual(BigDecimal aAmount, BigDecimal aDuration) {
+    public MortageResidual(BigDecimal aAmount, BigDecimal aDuration) {
         amount = aAmount;
         duration = aDuration;
     }
 
-    BigDecimal getDuration() {
+    public BigDecimal getDuration() {
         return duration;
     }
 
     public BigDecimal getAmount() {
-        return amount;
+        return amount.setScale(2, RoundingMode.HALF_UP);
+    }
+
+    @Override
+    public String toString() {
+        return "MortageResidual{" +
+                "amount=" + amount +
+                ", duration=" + duration +
+                '}';
     }
 }
