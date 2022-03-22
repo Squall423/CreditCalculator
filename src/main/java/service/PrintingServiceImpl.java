@@ -23,15 +23,15 @@ public class PrintingServiceImpl implements PrintingService {
 
     @Override
     public void printInputDataInfo(List<Rate> aRates) {
-        String format = " %s %s " +
-                "%s %s " +
-                "%s %s " +
-                "%s %s " +
-                "%s %s " +
-                "%s %s " +
-                "%s %s " +
-                "%s %s " +
-                "%s %s";
+        String format = " %2s %1s | " +
+                "%2s %1s | " +
+                "%2s %1s | " +
+                "%2s %1s | " +
+                "%2s %4s | " +
+                "%2s %4s | " +
+                "%2s %4s | " +
+                "%2s %4s | " +
+                "%2s %4s | ";
         for (Rate rate : aRates) {
             String message = String.format(format,
                     RATE_NUMBER, rate.getRateNumber(),

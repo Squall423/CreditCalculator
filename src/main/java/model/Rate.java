@@ -8,14 +8,17 @@ public class Rate {
     private final TimePoint timePoint;
     private final RateAmounts rateAmount;
     private final MortageResidual mortageResidual;
+    private final MortageReference mortageReference;
 
    public Rate(BigDecimal aRateNumber, TimePoint aTimePoint, RateAmounts aRateAmounts,
-               MortageResidual aMortageResidual) {
-        rateNumber = aRateNumber;
+               MortageResidual aMortageResidual, MortageReference aMortageReference) {
+
+       rateNumber = aRateNumber;
         timePoint = aTimePoint;
         rateAmount = aRateAmounts;
         mortageResidual = aMortageResidual;
-    }
+       mortageReference = aMortageReference;
+   }
 
     public BigDecimal getRateNumber() {
         return rateNumber;
@@ -33,13 +36,7 @@ public class Rate {
         return mortageResidual;
     }
 
-    @Override
-    public String toString() {
-        return "Rate{" +
-                "rateAmount=" + rateAmount +
-                ", mortageResidual=" + mortageResidual +
-                '}';
-    }
+
 
 
 }
