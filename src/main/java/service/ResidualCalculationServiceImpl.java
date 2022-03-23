@@ -13,8 +13,7 @@ public class ResidualCalculationServiceImpl implements ResidualCalculationServic
     @Override
     public MortageResidual calculate(RateAmounts aRateAmounts, InputData aInputData) {
 
-        BigDecimal residualAmount =
-                aInputData.getAmount().subtract(aRateAmounts.getCapitalAmount()).max(BigDecimal.ONE);
+        BigDecimal residualAmount = calculateResidualAmount(aInputData.getAmount(), aRateAmounts);
         BigDecimal residualDuration = aInputData.getMonthsDuration().subtract(BigDecimal.ONE);
 
         return new MortageResidual(residualAmount, residualDuration);
@@ -24,9 +23,16 @@ public class ResidualCalculationServiceImpl implements ResidualCalculationServic
     public MortageResidual calculate(RateAmounts aRateAmounts, Rate aPreviousRate) {
         MortageResidual residual = aPreviousRate.getMortageResidual();
 
-        BigDecimal residualAmount = residual.getAmount().subtract(aRateAmounts.getCapitalAmount()).max(BigDecimal.ONE);
+        BigDecimal residualAmount = calculateResidualAmount(residual.getAmount(), aRateAmounts);
         BigDecimal residualDuration = residual.getDuration().subtract(BigDecimal.ONE);
 
         return new MortageResidual(residualAmount, residualDuration);
+    }
+
+    private BigDecimal calculateResidualAmount(BigDecimal aInputData, RateAmounts aRateAmounts) {
+        return aInputData.subtract(aRateAmounts.getCapitalAmount()).max(BigDecimal.ONE)
+                .subtract(aRateAmounts.getCapitalAmount())
+                .subtract(aRateAmounts.getOverpayment().getAmount())
+                .max(BigDecimal.ZERO);
     }
 }

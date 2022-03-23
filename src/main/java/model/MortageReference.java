@@ -1,21 +1,23 @@
 package model;
 
+import java.math.BigDecimal;
+
 public class MortageReference {
 
-    private final Overpayment referenceAmount;
+    private final BigDecimal referenceAmount;
 
-    private final Overpayment referenceDuration;
+    private final BigDecimal referenceDuration;
 
-    MortageReference(Overpayment aReferenceAmount, Overpayment aReferenceDuration) {
+    public MortageReference(BigDecimal aReferenceAmount, BigDecimal aReferenceDuration) {
         referenceAmount = aReferenceAmount;
         referenceDuration = aReferenceDuration;
     }
 
-    Overpayment getReferenceAmount() {
+    BigDecimal getReferenceAmount() {
         return referenceAmount;
     }
 
-    Overpayment getReferenceDuration() {
+    BigDecimal getReferenceDuration() {
         return referenceDuration;
     }
 }

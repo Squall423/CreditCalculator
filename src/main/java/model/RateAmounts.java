@@ -1,15 +1,16 @@
 package model;
 
+import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class RateAmounts {
 
-    private final java.math.BigDecimal rateAmount;
-    private final java.math.BigDecimal interestAmount;
-    private final java.math.BigDecimal capitalAmount;
+    private final BigDecimal rateAmount;
+    private final BigDecimal interestAmount;
+    private final BigDecimal capitalAmount;
     private final Overpayment overpayment;
 
-    public RateAmounts(java.math.BigDecimal aRateAmount, java.math.BigDecimal aInterestAmount, java.math.BigDecimal aCapitalAmount,
+    public RateAmounts(BigDecimal aRateAmount, BigDecimal aInterestAmount, BigDecimal aCapitalAmount,
                        Overpayment aOverpayment) {
         rateAmount = aRateAmount;
         interestAmount = aInterestAmount;
@@ -17,20 +18,20 @@ public class RateAmounts {
         overpayment = aOverpayment;
     }
 
-    public java.math.BigDecimal getRateAmount() {
+    public BigDecimal getRateAmount() {
         return rateAmount.setScale(2, RoundingMode.HALF_UP);
     }
 
-    public java.math.BigDecimal getInterestAmount() {
+    public BigDecimal getInterestAmount() {
         return interestAmount.setScale(2, RoundingMode.HALF_UP);
     }
 
-    public java.math.BigDecimal getCapitalAmount() {
+    public BigDecimal getCapitalAmount() {
         return capitalAmount.setScale(2, RoundingMode.HALF_UP);
     }
 
-    public java.math.BigDecimal getOverpayment() {
-        return overpayment.setScale(2,RoundingMode.HALF_UP);
+    public Overpayment getOverpayment() {
+        return overpayment;
     }
 
 

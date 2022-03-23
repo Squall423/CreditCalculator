@@ -1,5 +1,6 @@
 package model;
 
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
@@ -15,12 +16,13 @@ public class InputData {
     private RateType rateType = RateType.CONSTANT;
     private BigDecimal wiborPercent = new BigDecimal("1.73");
     private BigDecimal bankMarginPercent = new BigDecimal("1.9");
-    private Map<Integer, BigDecimal> overpaymentSchema = Map.of(
+    private Map<Integer, BigDecimal> overpaymentSchema =  Map.of(
             5, BigDecimal.valueOf(10000),
             6, BigDecimal.valueOf(10000),
             7, BigDecimal.valueOf(10000),
             8, BigDecimal.valueOf(10000)
     );
+
     private String overpaymentReduceWay = Overpayment.REDUCE_PERIOD;
     private BigDecimal overpaymentProvisionPercent = BigDecimal.valueOf(3);
     private BigDecimal overpaymentProvisionMonths = BigDecimal.valueOf(36);
@@ -105,7 +107,7 @@ public class InputData {
         return overpaymentSchema;
     }
 
-    String getOverpaymentReduceWay() {
+    public String getOverpaymentReduceWay() {
         return overpaymentReduceWay;
     }
 

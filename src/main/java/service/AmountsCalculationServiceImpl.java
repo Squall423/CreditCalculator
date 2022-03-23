@@ -15,30 +15,30 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
     private final String CASE_NOT_HANDLED = "Case not handled";
 
     @Override
-    public RateAmounts calculate(InputData aInputData, Overpayment overpayment) {
+    public RateAmounts calculate(InputData aInputData, Overpayment aOverpayment) {
         switch (aInputData.getRateType()) {
             case CONSTANT:
-                return calculateConstantRate(aInputData);
+                return calculateConstantRate(aInputData, aOverpayment);
             case DECREASING:
-                return calculateDecreasingRate(aInputData);
+                return calculateDecreasingRate(aInputData, aOverpayment);
             default:
                 throw new RateCalculateException(CASE_NOT_HANDLED);
         }
     }
 
     @Override
-    public RateAmounts calculate(InputData aInputData, Overpayment overpayment, Rate aPreviousRate) {
+    public RateAmounts calculate(InputData aInputData, Overpayment aOverpayment, Rate aPreviousRate) {
         switch (aInputData.getRateType()) {
             case CONSTANT:
-                return calculateConstantRate(aInputData, aPreviousRate);
+                return calculateConstantRate(aInputData, aOverpayment, aPreviousRate);
             case DECREASING:
-                return calculateDecreasingRate(aInputData, aPreviousRate);
+                return calculateDecreasingRate(aInputData, aOverpayment, aPreviousRate);
             default:
                 throw new RateCalculateException(CASE_NOT_HANDLED);
         }
     }
 
-    private RateAmounts calculateConstantRate(InputData aInputData) {
+    private RateAmounts calculateConstantRate(InputData aInputData, Overpayment aOverpayment) {
         BigDecimal interestPercent = aInputData.getInterestPercent();
         BigDecimal residualAmount = aInputData.getAmount();
 
@@ -48,10 +48,10 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
         BigDecimal interestAmount = calculateInterestAmount(residualAmount, interestPercent);
         BigDecimal capitalAmount = calculateConstantCapitalAmount(rateAmount, interestAmount);
 
-        return new RateAmounts(rateAmount, interestAmount, capitalAmount);
+        return new RateAmounts(rateAmount, interestAmount, capitalAmount, aOverpayment);
     }
 
-    private RateAmounts calculateConstantRate(InputData aInputData, Rate aPreviousRate) {
+    private RateAmounts calculateConstantRate(InputData aInputData, Overpayment aOverpayment, Rate aPreviousRate) {
         BigDecimal interestPercent = aInputData.getInterestPercent();
         BigDecimal residualAmount = aPreviousRate.getMortageResidual().getAmount();
 
@@ -61,10 +61,10 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
         BigDecimal interestAmount = calculateInterestAmount(residualAmount, interestPercent);
         BigDecimal capitalAmount = calculateConstantCapitalAmount(rateAmount, interestAmount);
 
-        return new RateAmounts(rateAmount, interestAmount, capitalAmount);
+        return new RateAmounts(rateAmount, interestAmount, capitalAmount, aOverpayment);
     }
 
-    private RateAmounts calculateDecreasingRate(InputData aInputData) {
+    private RateAmounts calculateDecreasingRate(InputData aInputData, Overpayment aOverpayment) {
         BigDecimal interestPercent = aInputData.getInterestPercent();
         BigDecimal residualAmount = aInputData.getAmount();
 
@@ -72,10 +72,10 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
         BigDecimal capitalAmount = calculateDecreasingCapitalAmount(residualAmount, aInputData.getMonthsDuration());
         BigDecimal rateAmount = calculateDecreasingRateAmount(interestAmount, capitalAmount);
 
-        return new RateAmounts(rateAmount, interestAmount, capitalAmount);
+        return new RateAmounts(rateAmount, interestAmount, capitalAmount, aOverpayment);
     }
 
-    private RateAmounts calculateDecreasingRate(InputData aInputData, Rate aPreviousRate) {
+    private RateAmounts calculateDecreasingRate(InputData aInputData, Overpayment aOverpayment, Rate aPreviousRate) {
         BigDecimal interestPercent = aInputData.getInterestPercent();
         BigDecimal residualAmount = aPreviousRate.getMortageResidual().getAmount();
 
@@ -84,7 +84,7 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
                 aInputData.getMonthsDuration());
         BigDecimal rateAmount = calculateDecreasingRateAmount(interestAmount, capitalAmount);
 
-        return new RateAmounts(rateAmount, interestAmount, capitalAmount);
+        return new RateAmounts(rateAmount, interestAmount, capitalAmount, aOverpayment);
     }
 
     private BigDecimal calculateQ(BigDecimal aInterestPercent) {

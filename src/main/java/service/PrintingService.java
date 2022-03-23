@@ -9,6 +9,13 @@ import java.util.List;
 public interface PrintingService {
 
     String INTEREST_SUM = " SUMA ODSETEK: ";
+    String OVERPAYMENT_PROVISION = " PROWIZJA ZA NADPŁATY ";
+
+    String OVERPAYMENT_REDUCE_PERIOD = " NADPŁATA, SKRÓCENIE OKRESU ";
+    String OVERPAYMENT_REDUCE_RATE = " NADPŁATA, ZMNIEJSZENIE RATY ";
+    String OVERPAYMENT_FREQUENCY = " SCHEMAT DOKONYWANIA NADPŁAT: ";
+
+    String LOSTS_SUM = " SUMA STRAT: ";
     String RATE_NUMBER = " NR: ";
     String YEAR = "ROK: ";
     String MONTH = " MIESIĄC: ";
@@ -16,6 +23,7 @@ public interface PrintingService {
     String MONTHS = " MIESIĘCY ";
     String RATE = " RATA: ";
     String INTEREST_PAYMENT = " SPŁATA ODSETEK: ";
+    String OVERPAYMENT = " NADPŁATA: ";
     String CAPITAL = " KAPITAŁ: ";
     String LEFT_AMOUNT = " POZOSTAŁA KWOTA: ";
     String LEFT_MONTHS = " POZOSTAŁO MIESIĘCY: ";

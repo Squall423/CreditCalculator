@@ -10,12 +10,7 @@ public class ReferenceCalculationServiceImpl implements ReferenceCalculationServ
 
 
     @Override
-    public MortageReference calculate() {
-        return null;
-    }
-
-    @Override
-    public MortageReference calculate(Rate aPreviousRate) {
-        return null;
+    public MortageReference calculate(InputData aInputData) {
+        return new MortageReference(aInputData.getAmount(), aInputData.getMonthsDuration());
     }
 }
