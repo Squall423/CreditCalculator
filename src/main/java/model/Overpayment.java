@@ -1,23 +1,25 @@
 package model;
 
+import java.math.BigDecimal;
+
 public class Overpayment {
 
     public static final String REDUCE_RATE = "REDUCE_RATE";
     public static final String REDUCE_PERIOD = "REDUCE_PERIOD";
 
-    private final java.math.BigDecimal amount;
-    private final java.math.BigDecimal provisionAmount;
+    private final BigDecimal amount;
+    private final BigDecimal provisionAmount;
 
-    public Overpayment(java.math.BigDecimal aAmount, java.math.BigDecimal aProvisionAmount) {
+    public Overpayment(BigDecimal aAmount, BigDecimal aProvisionAmount) {
         amount = aAmount;
         provisionAmount = aProvisionAmount;
     }
 
-    public java.math.BigDecimal getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public java.math.BigDecimal getProvisionAmount() {
+    public BigDecimal getProvisionAmount() {
         return provisionAmount;
     }
 }

@@ -31,7 +31,7 @@ public class ResidualCalculationServiceImpl implements ResidualCalculationServic
 
     private BigDecimal calculateResidualAmount(BigDecimal aInputData, RateAmounts aRateAmounts) {
         return aInputData.subtract(aRateAmounts.getCapitalAmount()).max(BigDecimal.ONE)
-                .subtract(aRateAmounts.getCapitalAmount())
+
                 .subtract(aRateAmounts.getOverpayment().getAmount())
                 .max(BigDecimal.ZERO);
     }

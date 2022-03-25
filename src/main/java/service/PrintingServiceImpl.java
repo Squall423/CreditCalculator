@@ -21,7 +21,7 @@ public class PrintingServiceImpl implements PrintingService {
         msg.append(INTEREST_PAYMENT).append(aInputData.getInterestDisplay()).append(PERCENT);
         msg.append(NEW_LINE);
 
-        Optional.of(aInputData.getOverpaymentSchema())
+        Optional.ofNullable(aInputData.getOverpaymentSchema())
                 .filter(schema -> schema.size() > 0)
                 .ifPresent(schema -> logOverpayment(msg, aInputData));
 

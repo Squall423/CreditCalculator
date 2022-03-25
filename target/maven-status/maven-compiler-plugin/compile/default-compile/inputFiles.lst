@@ -1,3 +1,4 @@
+D:\JAVA PROJECT\CreditCalculator\src\main\java\service\ConstantAmountCalculationService.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\service\AmountsCalculationServiceImpl.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\service\OverpaymentCalculationService.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\service\SummaryService.java
@@ -18,9 +19,12 @@ D:\JAVA PROJECT\CreditCalculator\src\main\java\service\MortageCalculationService
 D:\JAVA PROJECT\CreditCalculator\src\main\java\service\PrintingService.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\model\Overpayment.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\service\TimePointServiceImpl.java
+D:\JAVA PROJECT\CreditCalculator\src\main\java\service\DecreasingAmountsCalculationService.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\model\MortageResidual.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\service\ResidualCalculationServiceImpl.java
+D:\JAVA PROJECT\CreditCalculator\src\main\java\service\ConstantAmountCalculationServiceImpl.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\service\PrintingServiceImpl.java
+D:\JAVA PROJECT\CreditCalculator\src\main\java\service\DecreasingAmountsCalculationServiceImpl.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\model\InputData.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\model\exception\RateCalculateException.java
 D:\JAVA PROJECT\CreditCalculator\src\main\java\model\Rate.java

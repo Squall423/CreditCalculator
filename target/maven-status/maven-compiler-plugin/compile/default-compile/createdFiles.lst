@@ -14,10 +14,14 @@ model\TimePoint.class
 model\MortageResidual.class
 service\ResidualCalculationService.class
 service\MortageCalculationService.class
+service\ConstantAmountCalculationService.class
 model\Overpayment.class
+service\DecreasingAmountsCalculationService.class
 service\TimePointServiceImpl.class
 service\exception\MortageException.class
 model\exception\RateCalculateException.class
+service\ConstantAmountCalculationServiceImpl.class
+service\DecreasingAmountsCalculationServiceImpl.class
 service\SummaryServiceFactory.class
 service\ReferenceCalculationService.class
 service\TimePointService.class
