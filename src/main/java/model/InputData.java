@@ -27,7 +27,7 @@ public class InputData {
     private BigDecimal overpaymentProvisionPercent = BigDecimal.valueOf(3);
     private BigDecimal overpaymentProvisionMonths = BigDecimal.valueOf(36);
 
-    public InputData overPaymentSchema(Map<Integer, BigDecimal> overpaymentSchema) {
+    public InputData withOverpaymentSchema(Map<Integer, BigDecimal> overpaymentSchema) {
         this.overpaymentSchema = overpaymentSchema;
         return this;
     }

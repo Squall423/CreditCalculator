@@ -29,11 +29,11 @@ public class DecreasingAmountsCalculationServiceImpl implements DecreasingAmount
     public RateAmounts calculate(InputData aInputData, Overpayment aOverpayment, Rate aPreviousRate) {
         BigDecimal interestPercent = aInputData.getInterestPercent();
         BigDecimal residualAmount = aPreviousRate.getMortageResidual().getAmount();
-        BigDecimal referenceAmount = aInputData.getAmount();
-        BigDecimal residualDuration = aInputData.getMonthsDuration();
+        BigDecimal referenceAmount = aPreviousRate.getMortageReference().getReferenceAmount();
+        BigDecimal referenceDuration = aPreviousRate.getMortageReference().getReferenceDuration();
 
         BigDecimal interestAmount = calculateInterestAmount(residualAmount, interestPercent);
-        BigDecimal capitalAmount = calculateCapitalAmount(referenceAmount, residualDuration, residualAmount);
+        BigDecimal capitalAmount = calculateCapitalAmount(referenceAmount, referenceDuration, residualAmount);
         BigDecimal rateAmount = calculateDecreasingRateAmount(interestAmount, capitalAmount);
 
         return new RateAmounts(rateAmount, interestAmount, capitalAmount, aOverpayment);

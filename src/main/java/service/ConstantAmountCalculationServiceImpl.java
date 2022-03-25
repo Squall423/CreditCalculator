@@ -35,8 +35,8 @@ public class ConstantAmountCalculationServiceImpl implements ConstantAmountCalcu
         BigDecimal q = calculateQ(interestPercent);
 
         BigDecimal residualAmount = aPreviousRate.getMortageResidual().getAmount();
-        BigDecimal referenceAmount = aInputData.getAmount();
-        BigDecimal referenceDuration = aInputData.getMonthsDuration();
+        BigDecimal referenceAmount = aPreviousRate.getMortageReference().getReferenceAmount();
+        BigDecimal referenceDuration = aPreviousRate.getMortageReference().getReferenceDuration();
 
 
         BigDecimal interestAmount = calculateInterestAmount(residualAmount, interestPercent);
@@ -55,8 +55,8 @@ public class ConstantAmountCalculationServiceImpl implements ConstantAmountCalcu
         return aResidualAmount.multiply(aInterestPercent).divide(YEAR, 50, RoundingMode.HALF_UP);
     }
 
-    private BigDecimal calculateConstantRateAmount(BigDecimal q, BigDecimal aAmount, BigDecimal aMonthsDuration, BigDecimal aInterestAmount, BigDecimal aResidualAmount)
-    {
+    private BigDecimal calculateConstantRateAmount(BigDecimal q, BigDecimal aAmount, BigDecimal aMonthsDuration,
+                                                   BigDecimal aInterestAmount, BigDecimal aResidualAmount) {
         BigDecimal rateAmount = aAmount
                 .multiply(q.pow(aMonthsDuration.intValue()))
                 .multiply(q.subtract(BigDecimal.ONE))
@@ -66,16 +66,16 @@ public class ConstantAmountCalculationServiceImpl implements ConstantAmountCalcu
         return compareWithResidual(rateAmount, aInterestAmount, aResidualAmount);
     }
 
-    private BigDecimal compareWithResidual(BigDecimal aRateAmount, BigDecimal aInterestAmount, BigDecimal aResidualAmount)
-    {
+    private BigDecimal compareWithResidual(BigDecimal aRateAmount, BigDecimal aInterestAmount,
+                                           BigDecimal aResidualAmount) {
         if (aRateAmount.subtract(aInterestAmount).compareTo(aResidualAmount) >= 0) {
             return aResidualAmount.add(aInterestAmount);
         }
         return aRateAmount;
     }
 
-    private BigDecimal calculateCapitalAmount(BigDecimal aRateAmount, BigDecimal aInterestAmount, BigDecimal aResidualAmount)
-    {
+    private BigDecimal calculateCapitalAmount(BigDecimal aRateAmount, BigDecimal aInterestAmount,
+                                              BigDecimal aResidualAmount) {
         BigDecimal capitalAmount = aRateAmount.subtract(aInterestAmount);
 
         if (capitalAmount.compareTo(aResidualAmount) >= 0) {

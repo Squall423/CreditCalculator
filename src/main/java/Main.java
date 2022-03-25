@@ -4,11 +4,13 @@ import model.RateType;
 import service.*;
 
 import java.math.BigDecimal;
+import java.util.Collections;
 
 public class Main {
     public static void main(String[] args) {
         InputData inputData = new InputData()
                 .withAmount(new BigDecimal("298000"))
+                .withOverpaymentSchema(Collections.emptyMap())
                 .withMonthsDuration(BigDecimal.valueOf(360))
                 .withRateType(RateType.CONSTANT)
                 .withOverpaymentReduceWay(Overpayment.REDUCE_RATE);

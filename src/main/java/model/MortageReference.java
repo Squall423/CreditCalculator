@@ -13,11 +13,11 @@ public class MortageReference {
         referenceDuration = aReferenceDuration;
     }
 
-    BigDecimal getReferenceAmount() {
+    public BigDecimal getReferenceAmount() {
         return referenceAmount;
     }
 
-    BigDecimal getReferenceDuration() {
+    public BigDecimal getReferenceDuration() {
         return referenceDuration;
     }
 }
