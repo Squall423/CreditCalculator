@@ -7,9 +7,7 @@ import model.RateAmounts;
 
 public interface ReferenceCalculationService {
 
+    MortageReference calculate(RateAmounts rateAmounts,InputData aInputData);
 
-    MortageReference calculate(InputData aInputData);
-
-
-    MortageReference calculate(InputData aInputData, RateAmounts aRateAmounts, Rate aPreviousRate);
+    MortageReference calculate( RateAmounts aRateAmounts, final InputData aInputData, Rate aPreviousRate);
 }

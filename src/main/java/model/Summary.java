@@ -5,26 +5,34 @@ import java.math.BigDecimal;
 public class Summary {
     private final BigDecimal interestSum;
 
-    private final BigDecimal overpaymentProvisions;
+    private final BigDecimal overpaymentProvisionsSum;
 
-    private final BigDecimal totalLosts;
+    private final BigDecimal totalLostSum;
+    private final BigDecimal totalCapital;
 
 
-    public Summary(BigDecimal aInterestSum, BigDecimal aOverpaymentProvision, BigDecimal aTotalLosts) {
+    public Summary(final BigDecimal aInterestSum,final BigDecimal aOverpaymentProvisionSum,final BigDecimal aTotalLostSum,
+                   final BigDecimal aTotalCapital) {
         interestSum = aInterestSum;
-        overpaymentProvisions = aOverpaymentProvision;
-        totalLosts = aTotalLosts;
+        overpaymentProvisionsSum = aOverpaymentProvisionSum;
+        totalLostSum = aTotalLostSum;
+        totalCapital = aTotalCapital;
     }
 
     public BigDecimal getInterestSum() {
         return interestSum;
     }
 
-    public BigDecimal getOverpaymentProvisions() {
-        return overpaymentProvisions;
+    public BigDecimal getOverpaymentProvisionsSum() {
+        return overpaymentProvisionsSum;
     }
 
-    public BigDecimal getTotalLosts() {
-        return totalLosts;
+    public BigDecimal getTotalLostSum() {
+        return totalLostSum;
+    }
+
+    public BigDecimal getTotalCapital() {
+        return totalCapital;
     }
 }
+

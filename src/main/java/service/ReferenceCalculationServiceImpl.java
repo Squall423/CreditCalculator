@@ -7,43 +7,43 @@ import java.math.BigDecimal;
 
 public class ReferenceCalculationServiceImpl implements ReferenceCalculationService {
 
-
     @Override
-    public MortageReference calculate(InputData aInputData) {
+    public MortageReference calculate(RateAmounts rateAmounts, InputData aInputData) {
+        if (BigDecimal.ZERO.equals(aInputData.getAmount())) {
+            return new MortageReference(BigDecimal.ZERO, BigDecimal.ZERO);
+        }
         return new MortageReference(aInputData.getAmount(), aInputData.getMonthsDuration());
     }
 
     @Override
-    public MortageReference calculate(InputData aInputData, RateAmounts aRateAmounts, Rate aPreviousRate) {
-        if (BigDecimal.ZERO.equals(aPreviousRate.getMortageResidual().getAmount())) {
+    public MortageReference calculate( RateAmounts aRateAmounts, final InputData aInputData, Rate aPreviousRate) {
+        if (BigDecimal.ZERO.equals(aPreviousRate.getMortageResidual().getResidualAmount())) {
             return new MortageReference(BigDecimal.ZERO, BigDecimal.ZERO);
 
         }
         switch (aInputData.getOverpaymentReduceWay()) {
+            case Overpayment.REDUCE_RATE:
+                return reduceRateMortgageReference(aRateAmounts, aPreviousRate.getMortageResidual());
             case Overpayment.REDUCE_PERIOD:
                 return new MortageReference(aInputData.getAmount(), aInputData.getMonthsDuration());
-            case Overpayment.REDUCE_RATE:
-                return reduceRateMortageReference(aRateAmounts, aPreviousRate);
             default:
-                throw new MortageException();
+                throw new MortageException("Case not handled");
         }
     }
 
-    private MortageReference reduceRateMortageReference(RateAmounts aRateAmounts, Rate aPreviousRate) {
+    private MortageReference reduceRateMortgageReference(final RateAmounts aRateAmounts,
+                                                         final MortageResidual previousResidual) {
         if (aRateAmounts.getOverpayment().getAmount().compareTo(BigDecimal.ZERO) > 0) {
-            BigDecimal referenceAmount = calculateResidualAmount(aPreviousRate.getMortageResidual().getAmount(),
-                    aRateAmounts);
-            BigDecimal referenceDuaration = aPreviousRate.getMortageResidual().getDuration().subtract(BigDecimal.ONE);
-            return new MortageReference(referenceAmount,referenceDuaration);
-
+            BigDecimal residualAmount = calculateResidualAmount(previousResidual.getResidualAmount(), aRateAmounts);
+            return new MortageReference(residualAmount, previousResidual.getResidualDuration().subtract(BigDecimal.ONE));
         }
-        return new MortageReference(aPreviousRate.getMortageReference().getReferenceAmount(),
-                aPreviousRate.getMortageReference().getReferenceDuration());
+
+        return new MortageReference(previousResidual.getResidualAmount(), previousResidual.getResidualDuration());
     }
 
-    private BigDecimal calculateResidualAmount(BigDecimal aAmount, RateAmounts aRateAmounts) {
-        return aAmount
-                .subtract(aRateAmounts.getCapitalAmount()).max(BigDecimal.ONE)
+    private BigDecimal calculateResidualAmount(final BigDecimal residualAmount,final RateAmounts aRateAmounts) {
+        return residualAmount
+                .subtract(aRateAmounts.getCapitalAmount())
                 .subtract(aRateAmounts.getOverpayment().getAmount())
                 .max(BigDecimal.ZERO);
 

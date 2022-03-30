@@ -10,8 +10,8 @@ public class Rate {
     private final MortageResidual mortageResidual;
     private final MortageReference mortageReference;
 
-    public Rate(BigDecimal aRateNumber, TimePoint aTimePoint, RateAmounts aRateAmounts,
-                MortageResidual aMortageResidual, MortageReference aMortageReference) {
+    public Rate(final BigDecimal aRateNumber, final TimePoint aTimePoint,final RateAmounts aRateAmounts,
+                final MortageResidual aMortageResidual,final MortageReference aMortageReference) {
 
        rateNumber = aRateNumber;
         timePoint = aTimePoint;

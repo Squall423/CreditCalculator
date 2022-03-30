@@ -9,25 +9,29 @@ import java.util.List;
 public class MortageCalculationServiceImpl implements MortageCalculationService {
 
 
-    private final PrintingService printingService;
     private final RateCalculationService rateCalculationService;
+    private final PrintingService printingService;
     private final SummaryService summaryService;
 
-    public MortageCalculationServiceImpl(PrintingService aPrintingService,
-                                         RateCalculationService aRateCalculationService, SummaryService aSummaryService) {
-        printingService = aPrintingService;
-        rateCalculationService = aRateCalculationService;
-        summaryService = aSummaryService;
+    public MortageCalculationServiceImpl(
+        final RateCalculationService rateCalculationService,
+        final PrintingService printingService,
+        final SummaryService summaryService
+    ) {
+        this.rateCalculationService = rateCalculationService;
+        this.printingService = printingService;
+        this.summaryService = summaryService;
     }
 
     @Override
     public void calculate(InputData aInputData) {
-        printingService.printInputDataInfo(aInputData);
-        List<Rate> rates = rateCalculationService.calculate(aInputData);
+        printingService.printIntroInformation(aInputData);
 
-        Summary summary = summaryService.calculate(rates);
+        List<Rate> rates = rateCalculationService.calculate(aInputData);
+        Summary summary = summaryService.calculateSummary(rates);
+
         printingService.printSummary(summary);
-        printingService.printInputDataInfo(rates);
+        printingService.printSchedule(rates, aInputData);
     }
 
 }

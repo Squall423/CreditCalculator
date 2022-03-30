@@ -10,7 +10,7 @@ public class Overpayment {
     private final BigDecimal amount;
     private final BigDecimal provisionAmount;
 
-    public Overpayment(BigDecimal aAmount, BigDecimal aProvisionAmount) {
+    public Overpayment(final BigDecimal aAmount, final BigDecimal aProvisionAmount) {
         amount = aAmount;
         provisionAmount = aProvisionAmount;
     }

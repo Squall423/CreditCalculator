@@ -8,22 +8,22 @@ import model.exception.RateCalculateException;
 
 public class AmountsCalculationServiceImpl implements AmountsCalculationService {
 
-    private final ConstantAmountCalculationServiceImpl constantAmountCalculationService;
+    private final ConstantAmountsCalculationService constantAmountsCalculationService;
     private final DecreasingAmountsCalculationService decreasingAmountsCalculationService;
 
-    public AmountsCalculationServiceImpl(ConstantAmountCalculationServiceImpl aConstantAmountCalculationService,
-                                         DecreasingAmountsCalculationService aDecreasingAmountsCalculationService) {
-        constantAmountCalculationService = aConstantAmountCalculationService;
+    public AmountsCalculationServiceImpl(final ConstantAmountsCalculationService aConstantAmountsCalculationService,
+                                         final DecreasingAmountsCalculationService aDecreasingAmountsCalculationService) {
+        constantAmountsCalculationService = aConstantAmountsCalculationService;
         decreasingAmountsCalculationService = aDecreasingAmountsCalculationService;
     }
 
     private final String CASE_NOT_HANDLED = "Case not handled";
 
     @Override
-    public RateAmounts calculate(InputData aInputData, Overpayment aOverpayment) {
+    public RateAmounts calculate(final InputData aInputData, final Overpayment aOverpayment) {
         switch (aInputData.getRateType()) {
             case CONSTANT:
-                return constantAmountCalculationService.calculate(aInputData, aOverpayment);
+                return constantAmountsCalculationService.calculate(aInputData, aOverpayment);
             case DECREASING:
                 return decreasingAmountsCalculationService.calculate(aInputData, aOverpayment);
             default:
@@ -32,10 +32,10 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
     }
 
     @Override
-    public RateAmounts calculate(InputData aInputData, Overpayment aOverpayment, Rate aPreviousRate) {
+    public RateAmounts calculate(final InputData aInputData, final Overpayment aOverpayment, final Rate aPreviousRate) {
         switch (aInputData.getRateType()) {
             case CONSTANT:
-                return constantAmountCalculationService.calculate(aInputData, aOverpayment, aPreviousRate);
+                return constantAmountsCalculationService.calculate(aInputData, aOverpayment, aPreviousRate);
             case DECREASING:
                 return decreasingAmountsCalculationService.calculate(aInputData, aOverpayment, aPreviousRate);
             default:

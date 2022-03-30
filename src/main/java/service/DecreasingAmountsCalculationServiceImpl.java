@@ -8,53 +8,38 @@ import model.RateAmounts;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import static service.TimePointServiceImpl.YEAR;
-
 public class DecreasingAmountsCalculationServiceImpl implements DecreasingAmountsCalculationService {
     @Override
-    public RateAmounts calculate(InputData aInputData, Overpayment aOverpayment) {
+    public RateAmounts calculate(final InputData aInputData, final Overpayment aOverpayment) {
         BigDecimal interestPercent = aInputData.getInterestPercent();
-        BigDecimal residualAmount = aInputData.getAmount();
-        BigDecimal referenceAmount = aInputData.getAmount();
-        BigDecimal residualDuration = aInputData.getMonthsDuration();
 
-        BigDecimal interestAmount = calculateInterestAmount(residualAmount, interestPercent);
-        BigDecimal capitalAmount = calculateCapitalAmount(referenceAmount, residualDuration, residualAmount);
-        BigDecimal rateAmount = calculateDecreasingRateAmount(interestAmount, capitalAmount);
+       final BigDecimal residualAmount = aInputData.getAmount();
+       final BigDecimal residualDuration = aInputData.getMonthsDuration();
+
+        BigDecimal interestAmount = AmountsCalculationService.calculateInterestAmount(residualAmount, interestPercent);
+        BigDecimal capitalAmount = AmountsCalculationService.compareCapitalWithResidual(
+                calculateDecreasingCapitalAmount(residualAmount, residualDuration), residualAmount);
+        BigDecimal rateAmount = capitalAmount.add(interestAmount);
 
         return new RateAmounts(rateAmount, interestAmount, capitalAmount, aOverpayment);
     }
 
     @Override
-    public RateAmounts calculate(InputData aInputData, Overpayment aOverpayment, Rate aPreviousRate) {
+    public RateAmounts calculate(final InputData aInputData, final Overpayment aOverpayment, final Rate aPreviousRate) {
         BigDecimal interestPercent = aInputData.getInterestPercent();
-        BigDecimal residualAmount = aPreviousRate.getMortageResidual().getAmount();
+        BigDecimal residualAmount = aPreviousRate.getMortageResidual().getResidualAmount();
         BigDecimal referenceAmount = aPreviousRate.getMortageReference().getReferenceAmount();
         BigDecimal referenceDuration = aPreviousRate.getMortageReference().getReferenceDuration();
 
-        BigDecimal interestAmount = calculateInterestAmount(residualAmount, interestPercent);
-        BigDecimal capitalAmount = calculateCapitalAmount(referenceAmount, referenceDuration, residualAmount);
-        BigDecimal rateAmount = calculateDecreasingRateAmount(interestAmount, capitalAmount);
+        BigDecimal interestAmount = AmountsCalculationService.calculateInterestAmount(residualAmount, interestPercent);
+        BigDecimal capitalAmount = AmountsCalculationService.compareCapitalWithResidual(
+                calculateDecreasingCapitalAmount(referenceAmount, referenceDuration), residualAmount);
+        BigDecimal rateAmount = capitalAmount.add(interestAmount);
 
         return new RateAmounts(rateAmount, interestAmount, capitalAmount, aOverpayment);
     }
 
-    private BigDecimal calculateInterestAmount(BigDecimal aResidualAmount, BigDecimal aInterestPercent) {
-        return aResidualAmount.multiply(aInterestPercent).divide(YEAR, 50, RoundingMode.HALF_UP);
-    }
-
-
-    private BigDecimal calculateDecreasingRateAmount(BigDecimal capitalAmount, BigDecimal aInterestAmount) {
-        return capitalAmount.add(aInterestAmount);
-    }
-
-    private BigDecimal calculateCapitalAmount(BigDecimal aAmount, BigDecimal aMonthsDuration,
-                                              BigDecimal aResidualAmount) {
-        BigDecimal capitalAmount = aAmount.divide(aMonthsDuration, 50, RoundingMode.HALF_UP);
-
-        if (capitalAmount.compareTo(aResidualAmount) >= 0) {
-            return aResidualAmount;
-        }
-        return capitalAmount;
+    private BigDecimal calculateDecreasingCapitalAmount(final BigDecimal residualAmount, final BigDecimal residualDuration) {
+        return residualAmount.divide(residualDuration, 2, RoundingMode.HALF_UP);
     }
 }

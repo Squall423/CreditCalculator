@@ -8,15 +8,16 @@ import java.util.Map;
 
 public class InputData {
 
-    private static final java.math.BigDecimal PERCENT = java.math.BigDecimal.valueOf(100);
+    private static final BigDecimal PERCENT = new BigDecimal("100");
+    private LocalDate repaymentStartDate = LocalDate.of(2020, 12, 10);
 
-    private LocalDate repaymentStartDate = LocalDate.of(2020, 1, 6);
     private BigDecimal amount = new BigDecimal("300000");
     private BigDecimal monthsDuration = BigDecimal.valueOf(180);
-    private RateType rateType = RateType.CONSTANT;
-    private BigDecimal wiborPercent = new BigDecimal("1.73");
-    private BigDecimal bankMarginPercent = new BigDecimal("1.9");
-    private Map<Integer, BigDecimal> overpaymentSchema =  Map.of(
+    private MortageType rateType = MortageType.CONSTANT;
+    private BigDecimal wiborPercent = BigDecimal.valueOf(1.70);
+    private BigDecimal marginPercent = BigDecimal.valueOf(1.6);
+    private BigDecimal overpaymentStartMonth = BigDecimal.valueOf(1);
+    private Map<Integer, BigDecimal> overpaymentSchema = Map.of(
             5, BigDecimal.valueOf(10000),
             6, BigDecimal.valueOf(10000),
             7, BigDecimal.valueOf(10000),
@@ -27,25 +28,8 @@ public class InputData {
     private BigDecimal overpaymentProvisionPercent = BigDecimal.valueOf(3);
     private BigDecimal overpaymentProvisionMonths = BigDecimal.valueOf(36);
 
-    public InputData withOverpaymentSchema(Map<Integer, BigDecimal> overpaymentSchema) {
-        this.overpaymentSchema = overpaymentSchema;
-        return this;
-    }
-
-    public InputData withOverpaymentReduceWay(String overpaymentReduceWay) {
-        this.overpaymentReduceWay = overpaymentReduceWay;
-        return this;
-    }
-
-    public InputData withOverpaymentProvisionPercent(BigDecimal overpaymentProvisionPercent) {
-        this.overpaymentProvisionPercent = overpaymentProvisionPercent;
-        return this;
-    }
-
-    public InputData withOverpaymentProvisionMonths(BigDecimal overpaymentProvisionMonths) {
-        this.overpaymentProvisionMonths = overpaymentProvisionMonths;
-        return this;
-    }
+    private boolean mortgagePrintPayoffsSchedule = true;
+    private Integer mortgageRateNumberToPrint = 1;
 
 
     public InputData withRepaymentStartDate(LocalDate repaymentStartDate) {
@@ -68,47 +52,97 @@ public class InputData {
         return this;
     }
 
-    public InputData withRateType(RateType rateType) {
-        this.rateType = rateType;
+    public InputData withType(MortageType type) {
+        this.rateType = type;
         return this;
     }
 
     public InputData withBankMarginPercent(BigDecimal bankMarginPercent) {
-        this.bankMarginPercent = bankMarginPercent;
+        this.marginPercent = bankMarginPercent;
         return this;
     }
 
-    public LocalDate getRepaymentStartDate() {
-        return repaymentStartDate;
+    public InputData withOverpaymentProvisionPercent(BigDecimal overpaymentProvisionPercent) {
+        this.overpaymentProvisionPercent = overpaymentProvisionPercent;
+        return this;
+    }
+
+    public InputData withOverpaymentProvisionMonths(BigDecimal overpaymentProvisionMonths) {
+        this.overpaymentProvisionMonths = overpaymentProvisionMonths;
+        return this;
+    }
+
+    public InputData withOverpaymentStartMonth(BigDecimal overpaymentStartMonth) {
+        this.overpaymentStartMonth = overpaymentStartMonth;
+        return this;
     }
 
 
+    public InputData withOverpaymentSchema(Map<Integer, BigDecimal> overpaymentSchema) {
+        this.overpaymentSchema = overpaymentSchema;
+        return this;
+    }
+
+    public InputData withOverpaymentReduceWay(String overpaymentReduceWay) {
+        this.overpaymentReduceWay = overpaymentReduceWay;
+        return this;
+    }
+
+    public InputData withMortgagePrintPayoffsSchedule(boolean mortgagePrintPayoffsSchedule) {
+        this.mortgagePrintPayoffsSchedule = mortgagePrintPayoffsSchedule;
+        return this;
+    }
+
+    public InputData withMortgageRateNumberToPrint(Integer mortgageRateNumberToPrint) {
+        this.mortgageRateNumberToPrint = mortgageRateNumberToPrint;
+        return this;
+    }
+
+
+
+    public LocalDate getRepaymentStartDate() {
+
+        return repaymentStartDate;
+    }
+
+    public BigDecimal getWiborPercent() {
+        return wiborPercent.divide(PERCENT, 4, RoundingMode.HALF_UP);
+    }
+
     public BigDecimal getAmount() {
+
         return amount;
     }
 
     public BigDecimal getMonthsDuration() {
+
         return monthsDuration;
     }
 
-    public RateType getRateType() {
+    public MortageType getRateType() {
+
         return rateType;
     }
 
-    public BigDecimal getInterestPercent() {
-        return wiborPercent.add(bankMarginPercent).divide(PERCENT, 10, RoundingMode.HALF_UP);
+
+    public BigDecimal getOverpaymentStartMonth() {
+
+        return overpaymentStartMonth;
     }
 
+
     public BigDecimal getInterestDisplay() {
-        return wiborPercent.add(bankMarginPercent).setScale(2, RoundingMode.HALF_UP);
+        return wiborPercent.add(marginPercent);
     }
 
     public Map<Integer, BigDecimal> getOverpaymentSchema() {
+
         return overpaymentSchema;
     }
 
-    public String getOverpaymentReduceWay() {
-        return overpaymentReduceWay;
+    public BigDecimal getMarginPercent() {
+
+        return marginPercent.divide(PERCENT, 4, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getOverpaymentProvisionPercent() {
@@ -119,14 +153,27 @@ public class InputData {
         return overpaymentProvisionMonths;
     }
 
+
+    public boolean isMortgagePrintPayoffsSchedule() {
+
+        return mortgagePrintPayoffsSchedule;
+    }
+
+    public Integer getMortgageRateNumberToPrint() {
+
+        return mortgageRateNumberToPrint;
+    }
+
+    public String getOverpaymentReduceWay() {
+
+        return overpaymentReduceWay;
+    }
+
+    public BigDecimal getInterestPercent() {
+        return getMarginPercent().add(getWiborPercent());
+    }
+
+    public BigDecimal getInterestToDisplay() {
+        return wiborPercent.add(marginPercent);
+    }
 }
-
-
-
-
-
-
-
-
-
-

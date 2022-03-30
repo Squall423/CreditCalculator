@@ -10,8 +10,8 @@ public class RateAmounts {
     private final BigDecimal capitalAmount;
     private final Overpayment overpayment;
 
-    public RateAmounts(BigDecimal aRateAmount, BigDecimal aInterestAmount, BigDecimal aCapitalAmount,
-                       Overpayment aOverpayment) {
+    public RateAmounts(final BigDecimal aRateAmount, final BigDecimal aInterestAmount,final BigDecimal aCapitalAmount,
+                      final Overpayment aOverpayment) {
         rateAmount = aRateAmount;
         interestAmount = aInterestAmount;
         capitalAmount = aCapitalAmount;
@@ -19,15 +19,15 @@ public class RateAmounts {
     }
 
     public BigDecimal getRateAmount() {
-        return rateAmount.setScale(2, RoundingMode.HALF_UP);
+        return rateAmount;
     }
 
     public BigDecimal getInterestAmount() {
-        return interestAmount.setScale(2, RoundingMode.HALF_UP);
+        return interestAmount;
     }
 
     public BigDecimal getCapitalAmount() {
-        return capitalAmount.setScale(2, RoundingMode.HALF_UP);
+        return capitalAmount;
     }
 
     public Overpayment getOverpayment() {

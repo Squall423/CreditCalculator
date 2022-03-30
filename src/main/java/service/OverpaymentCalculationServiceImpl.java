@@ -9,25 +9,26 @@ import java.util.Optional;
 
 public class OverpaymentCalculationServiceImpl implements OverpaymentCalculationService {
     @Override
-    public Overpayment calculate(BigDecimal aRateNumber, InputData aInputData) {
+    public Overpayment calculate(final BigDecimal aRateNumber, final InputData aInputData) {
 
-        BigDecimal overpaymentAmount =
-                calculateAmount(aRateNumber, aInputData.getOverpaymentSchema()).orElse(BigDecimal.ZERO);
-        BigDecimal overpaymentProvision = calculateProvision(aRateNumber, overpaymentAmount, aInputData);
+        BigDecimal overpaymentAmount = calculateOverpaymentAmount(aRateNumber, aInputData.getOverpaymentSchema()).orElse(BigDecimal.ZERO);
+        BigDecimal overpaymentProvision = calculateOverpaymentProvision(aRateNumber, overpaymentAmount, aInputData);
 
         return new Overpayment(overpaymentAmount, overpaymentProvision);
     }
 
-    private Optional<BigDecimal> calculateAmount(BigDecimal aRateNumber, Map<Integer, BigDecimal> aOverpaymentSchema) {
+    private Optional<BigDecimal> calculateOverpaymentAmount(final BigDecimal aRateNumber,
+                                                            Map<Integer, BigDecimal> aOverpaymentSchema) {
         for (Map.Entry<Integer, BigDecimal> entry : aOverpaymentSchema.entrySet()) {
-            if (aRateNumber.equals(BigDecimal.valueOf(entry.getKey()))) {
+            if (BigDecimal.valueOf(entry.getKey()).equals(aRateNumber)) {
                 return Optional.of(entry.getValue());
             }
         }
         return Optional.empty();
     }
 
-    private BigDecimal calculateProvision(BigDecimal aRateNumber, BigDecimal aOverpaymentAmount, InputData aInputData) {
+    private BigDecimal calculateOverpaymentProvision(final BigDecimal aRateNumber, final BigDecimal aOverpaymentAmount,
+                                                     final  InputData aInputData) {
         if (BigDecimal.ZERO.equals(aOverpaymentAmount)) {
             return BigDecimal.ZERO;
         }
