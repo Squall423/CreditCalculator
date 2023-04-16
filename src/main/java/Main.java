@@ -20,11 +20,11 @@ public class Main {
         overpaymentSchema.put(78, BigDecimal.valueOf(18000));
 
 
-        InputData defaultInputData = new InputData()
+        InputData defaultInputData = InputData.defaultInputData()
                 .withAmount(new BigDecimal("296192.11"))
                 .withMonthsDuration(BigDecimal.valueOf(360))
-                .withOverpaymentReduceWay(Overpayment.REDUCE_PERIOD)
-                .withType(MortageType.DECREASING)
+                .withOverpaymentReduceWay(Overpayment.REDUCE_RATE)
+                .withRateType(MortageType.DECREASING)
                 .withOverpaymentSchema(overpaymentSchema);
 
 
@@ -43,7 +43,8 @@ public class Main {
         MortageCalculationService mortageCalculationService = new MortageCalculationServiceImpl(
                 rateCalculationService,
                 printingService,
-                SummaryServiceFactory.create());
+                SummaryServiceFactory.create()
+        );
         mortageCalculationService.calculate(defaultInputData);
 
 

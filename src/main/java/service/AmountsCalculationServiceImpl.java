@@ -1,21 +1,17 @@
 package service;
 
+import lombok.RequiredArgsConstructor;
 import model.InputData;
 import model.Overpayment;
 import model.Rate;
 import model.RateAmounts;
 import model.exception.RateCalculateException;
 
+@RequiredArgsConstructor
 public class AmountsCalculationServiceImpl implements AmountsCalculationService {
 
     private final ConstantAmountsCalculationService constantAmountsCalculationService;
     private final DecreasingAmountsCalculationService decreasingAmountsCalculationService;
-
-    public AmountsCalculationServiceImpl(final ConstantAmountsCalculationService aConstantAmountsCalculationService,
-                                         final DecreasingAmountsCalculationService aDecreasingAmountsCalculationService) {
-        constantAmountsCalculationService = aConstantAmountsCalculationService;
-        decreasingAmountsCalculationService = aDecreasingAmountsCalculationService;
-    }
 
     private final String CASE_NOT_HANDLED = "Case not handled";
 

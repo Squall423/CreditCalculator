@@ -1,33 +1,21 @@
 package service;
 
+import lombok.RequiredArgsConstructor;
 import model.*;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
+@RequiredArgsConstructor
 public class RateCalculationServiceImpl implements RateCalculationService {
 
     private final TimePointCalculationService timepointCalculationService;
-    private final AmountsCalculationService amountsCalculationService;
     private final OverpaymentCalculationService overpaymentCalculationService;
+    private final AmountsCalculationService amountsCalculationService;
     private final ResidualCalculationService residualCalculationService;
     private final ReferenceCalculationService referenceCalculationService;
-
-    public RateCalculationServiceImpl(final TimePointCalculationService aTimePointCalculationService,
-                                      final OverpaymentCalculationService aOverpaymentCalculationService,
-                                      final  AmountsCalculationService aAmountsCalculationService,
-                                      final ResidualCalculationService aResidualCalculationService,
-                                      final ReferenceCalculationService aReferenceCalculationService) {
-
-        timepointCalculationService = aTimePointCalculationService;
-        overpaymentCalculationService = aOverpaymentCalculationService;
-        amountsCalculationService = aAmountsCalculationService;
-        residualCalculationService = aResidualCalculationService;
-        referenceCalculationService = aReferenceCalculationService;
-    }
 
     @Override
     public List<Rate> calculate(final InputData inputData) {

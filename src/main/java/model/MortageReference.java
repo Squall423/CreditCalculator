@@ -1,23 +1,13 @@
 package model;
 
+import lombok.Value;
+
 import java.math.BigDecimal;
 
+@Value
 public class MortageReference {
 
-    private final BigDecimal referenceAmount;
+    BigDecimal referenceAmount;
+    BigDecimal referenceDuration;
 
-    private final BigDecimal referenceDuration;
-
-    public MortageReference(BigDecimal aReferenceAmount, BigDecimal aReferenceDuration) {
-        referenceAmount = aReferenceAmount;
-        referenceDuration = aReferenceDuration;
-    }
-
-    public BigDecimal getReferenceAmount() {
-        return referenceAmount;
-    }
-
-    public BigDecimal getReferenceDuration() {
-        return referenceDuration;
-    }
 }

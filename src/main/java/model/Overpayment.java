@@ -1,25 +1,17 @@
 package model;
 
+import lombok.Value;
+
 import java.math.BigDecimal;
 
+@Value
 public class Overpayment {
 
     public static final String REDUCE_RATE = "REDUCE_RATE";
     public static final String REDUCE_PERIOD = "REDUCE_PERIOD";
 
-    private final BigDecimal amount;
-    private final BigDecimal provisionAmount;
+    BigDecimal amount;
+    BigDecimal provisionAmount;
 
-    public Overpayment(final BigDecimal aAmount, final BigDecimal aProvisionAmount) {
-        amount = aAmount;
-        provisionAmount = aProvisionAmount;
-    }
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
-
-    public BigDecimal getProvisionAmount() {
-        return provisionAmount;
-    }
 }
