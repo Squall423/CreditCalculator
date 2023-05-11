@@ -41,7 +41,7 @@ public interface PrintingService {
     String DATE = " DATA: ";
     String MONTHS = " MIESIĘCY ";
     String RATE = " RATA: ";
-    String INTEREST = " ODSETKI ";
+    String INTEREST = " ODSETKI: ";
     String OVERPAYMENT = " NADPŁATA: ";
     String CAPITAL = " KAPITAŁ: ";
     String LEFT_AMOUNT = " POZOSTAŁA KWOTA: ";
@@ -49,7 +49,6 @@ public interface PrintingService {
     String MORTAGE_AMOUNT = " KWOTA KREDYTU: ";
     String MORTAGE_PERIOD = " OKRES KREDYTOBRANIA: ";
     String BLANK = " ";
-
 
     String CURRENCY = " Zł ";
     String NEW_LINE = "\n";

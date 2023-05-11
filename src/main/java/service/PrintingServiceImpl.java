@@ -1,5 +1,6 @@
 package service;
 
+import lombok.extern.slf4j.Slf4j;
 import model.InputData;
 import model.Overpayment;
 import model.Rate;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public class PrintingServiceImpl implements PrintingService {
 
     @Override
@@ -117,6 +119,6 @@ public class PrintingServiceImpl implements PrintingService {
     }
 
     private void logMessage(String message) {
-        System.out.println(message);
+        log.info(message);
     }
 }

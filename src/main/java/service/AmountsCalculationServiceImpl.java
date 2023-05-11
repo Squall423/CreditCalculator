@@ -1,19 +1,22 @@
 package service;
 
 import lombok.RequiredArgsConstructor;
+
+
+
+import lombok.extern.slf4j.Slf4j;
 import model.InputData;
 import model.Overpayment;
 import model.Rate;
 import model.RateAmounts;
-import model.exception.RateCalculateException;
+import service.exception.MortageException;
 
+@Slf4j
 @RequiredArgsConstructor
 public class AmountsCalculationServiceImpl implements AmountsCalculationService {
 
     private final ConstantAmountsCalculationService constantAmountsCalculationService;
     private final DecreasingAmountsCalculationService decreasingAmountsCalculationService;
-
-    private final String CASE_NOT_HANDLED = "Case not handled";
 
     @Override
     public RateAmounts calculate(final InputData aInputData, final Overpayment aOverpayment) {
@@ -23,7 +26,8 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
             case DECREASING:
                 return decreasingAmountsCalculationService.calculate(aInputData, aOverpayment);
             default:
-                throw new RateCalculateException(CASE_NOT_HANDLED);
+                log.error("Case not handled: [{}]", aInputData.getRateType());
+                throw new MortageException("Case not handled");
         }
     }
 
@@ -35,7 +39,8 @@ public class AmountsCalculationServiceImpl implements AmountsCalculationService 
             case DECREASING:
                 return decreasingAmountsCalculationService.calculate(aInputData, aOverpayment, aPreviousRate);
             default:
-                throw new RateCalculateException(CASE_NOT_HANDLED);
+                log.error("Case not handled: [{}]", aInputData.getRateType());
+                throw new MortageException("Case not handled");
         }
     }
 

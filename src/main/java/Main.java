@@ -46,7 +46,7 @@ public class Main {
                 SummaryServiceFactory.create()
         );
         mortageCalculationService.calculate(defaultInputData);
-
+     
 
     }
 }

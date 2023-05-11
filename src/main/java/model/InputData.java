@@ -55,9 +55,8 @@ public class InputData {
             .build();
     }
 
-    public LocalDate getRepaymentStartDate() {
-
-        return repaymentStartDate;
+    public static InputData empty() {
+        return InputData.builder().build();
     }
 
     public BigDecimal getWiborPercent() {
